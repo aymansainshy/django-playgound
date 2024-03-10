@@ -30,7 +30,9 @@ ALLOWED_HOSTS = []
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+
+    'NOT_FIELD_ERROR_KEY': 'error'
 }
 
 SIMPLE_JWT = {

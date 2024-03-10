@@ -1,7 +1,16 @@
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import generics
 from .controllers import register_controller, login_controller
+from .serializers import UserSerializer
+
+
+# class RegisterView(generics.GenericAPIView):
+#     userSerializer = UserSerializer
+#
+#     def post(self, request):
+#         return register_controller.register(self.request)
 
 
 @api_view(['POST'])
