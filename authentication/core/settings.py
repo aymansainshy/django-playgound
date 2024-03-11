@@ -43,7 +43,7 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": "settings.SECRET_KEY",
+    "SIGNING_KEY": SECRET_KEY,
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,
@@ -173,3 +173,5 @@ AUTH_USER_MODEL = 'jwtAuth.User'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')

@@ -37,6 +37,6 @@ def login(request) -> Response:
         return Response({
             'data': user_serializer.data,
             'access_token': str(access_token),
-        })
+        }, status=status.HTTP_201_CREATED)
 
     # return Response(loginSerializer.errors, status=status.HTTP_404_NOT_FOUND)
