@@ -7,12 +7,13 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(max_length=68, min_length=6, write_only=True)
 
 
-class UserSerializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=68, min_length=6, write_only=True)
 
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'password']
+        # fields = '__all__'
 
         # To hide password and don't return it in response
         extra_kwargs = {
@@ -37,3 +38,15 @@ class UserSerializer(serializers.ModelSerializer):
     #         user.set_password(password)
     #     user.save()
     #     return user
+
+
+class UserResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        # fields = ['id', 'username', 'email', 'password']
+        fields = '__all__'
+
+        # To hide password and don't return it in response
+        extra_kwargs = {
+            "password": {"write_only": True}
+        }

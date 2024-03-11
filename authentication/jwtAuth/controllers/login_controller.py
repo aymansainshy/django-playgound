@@ -4,14 +4,14 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from ..models import User
-from ..serializers import UserSerializer, LoginSerializer
+from ..serializers import UserResponseSerializer, LoginSerializer
 
 
 def login(request) -> Response:
     # serializer act as validator middleware
-    loginSerializer = LoginSerializer(data=request.data)
+    user_serializer = LoginSerializer(data=request.data)
 
-    if loginSerializer.is_valid(raise_exception=True):
+    if user_serializer.is_valid(raise_exception=True):
         email = request.data['email']
         password = request.data['password']
 
@@ -32,11 +32,11 @@ def login(request) -> Response:
             #     status=status.HTTP_400_BAD_REQUEST
             # )
         # else return the founded user
-        accessToken = RefreshToken.for_user(user)
-        userSerializer = UserSerializer(user)
+        access_token = RefreshToken.for_user(user)
+        user_serializer = UserResponseSerializer(user)
         return Response({
-            'data': userSerializer.data,
-            'access_token': str(accessToken),
+            'data': user_serializer.data,
+            'access_token': str(access_token),
         })
 
     # return Response(loginSerializer.errors, status=status.HTTP_404_NOT_FOUND)

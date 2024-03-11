@@ -2,18 +2,19 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
 
-from ..serializers import UserSerializer
+from ..serializers import RegisterSerializer, UserResponseSerializer
 
 
 def register(request):
-    userSerializer = UserSerializer(data=request.data)
+    user_serializer = RegisterSerializer(data=request.data)
 
-    if userSerializer.is_valid(raise_exception=True):
-        savedUser = userSerializer.save()
+    if user_serializer.is_valid(raise_exception=True):
+        savedUser = user_serializer.save()
         accessToken = AccessToken.for_user(savedUser)
 
+        user_serializer = UserResponseSerializer(savedUser)
         return Response({
-            'data': userSerializer.data,
+            'data': user_serializer.data,
             'access_token': str(accessToken),
             'pyload': accessToken.payload,
         })

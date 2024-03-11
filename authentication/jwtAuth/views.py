@@ -3,11 +3,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import generics
 from .controllers import register_controller, login_controller
-from .serializers import UserSerializer
+from .serializers import UserResponseSerializer
 
 
 # class RegisterView(generics.GenericAPIView):
-#     userSerializer = UserSerializer
+#     userSerializer = UserResponseSerializer
 #
 #     def post(self, request):
 #         return register_controller.register(self.request)
@@ -26,5 +26,5 @@ def login(request):
 @api_view(['GET'])
 # @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def test_token(request):
+def testToken(request):
     return Response({"passed!"})
