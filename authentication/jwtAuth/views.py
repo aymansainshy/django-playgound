@@ -12,6 +12,10 @@ from .serializers import UserResponseSerializer
 #     def post(self, request):
 #         return register_controller.register(self.request)
 
+class VerifyEmail(generics.GenericAPIView):
+    def get(self, request):
+        pass
+
 
 @api_view(['POST'])
 def register(request):
