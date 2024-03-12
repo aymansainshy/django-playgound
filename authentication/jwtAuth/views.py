@@ -13,7 +13,8 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.contrib import auth
 
-from .serializers import (EmailVerificationSerializer, RegisterSerializer, LoginSerializer, UserResponseSerializer)
+from .serializers import (EmailVerificationSerializer, RegisterSerializer,
+                          LoginSerializer, UserResponseSerializer)
 from .utils import Utils
 
 
@@ -73,7 +74,7 @@ class Register(generics.GenericAPIView):
                 'email_subject': 'Verify Your email address'
             }
 
-            Utils.sendEmail(data)
+            Utils.send_email(data)
 
             return Response({
                 "code": 1,

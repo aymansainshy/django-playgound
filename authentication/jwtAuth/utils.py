@@ -5,7 +5,7 @@ from smtplib import SMTPException
 
 class Utils:
     @staticmethod
-    def sendEmail(data):
+    def send_email(data):
         try:
             email = EmailMessage(subject=data['email_subject'], body=data['email_body'], to=[data['to_email']])
             email.send()

@@ -4,7 +4,7 @@ from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 
 class UserManager(BaseUserManager):
-    def createUser(self, email, username=None, password=None):
+    def create_user(self, email, username=None, password=None):
         # if username is None:
         #     raise TypeError("username is required")
         if email is None:
@@ -15,9 +15,10 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def createSuperUser(self, username, email, password):
+    def create_superuser(self, username, email, password):
         if password is None:
             raise TypeError("password is required")
+
         user = self.createUser(email, username, password)
         user.is_superuser = True
         user.is_staff = True
