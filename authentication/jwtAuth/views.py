@@ -62,10 +62,12 @@ class Register(generics.GenericAPIView):
 
         if user_serializer.is_valid(raise_exception=True):
             saved_user = user_serializer.save()
-            # Sending email for verifications
+
+            # This will get the domain name for this server
             current_site = get_current_site(request).domain
+            # Internal route for verifying email
             relative_link = reverse('email-verify')
-            # Send email with generated link below as email body
+            # Generated link below as email body
             abs_url = 'http://' + current_site + relative_link + '?token=' + str(user_serializer.data['token'])
             email_body = 'Hi ' + saved_user.username + ' use link below to verify your email \n' + abs_url
             data = {
@@ -73,7 +75,7 @@ class Register(generics.GenericAPIView):
                 'to_email': saved_user.email,
                 'email_subject': 'Verify Your email address'
             }
-
+            # Sending email for verifications
             Utils.send_email(data)
 
             return Response({
