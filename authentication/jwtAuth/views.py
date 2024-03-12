@@ -6,15 +6,13 @@ from .models import User
 from core.settings import SECRET_KEY
 import jwt
 from rest_framework import generics, status, views
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.contrib import auth
 
-from .serializers import (EmailVerificationSerializer, RegisterSerializer,
-                          LoginSerializer, UserResponseSerializer)
+from .serializers import (EmailVerificationSerializer, RegisterSerializer, LoginSerializer)
 from .utils import Utils
 
 
@@ -109,7 +107,7 @@ def login(request):
         if not user.is_active:
             raise AuthenticationFailed('Account disabled, contact admin')
         # if not user.is_verified:
-        #     raise AuthenticationFailed('Email not verified!')
+        #     raise AuthenticationFailed('Email not verified')
 
         # return Response(
         #     data={

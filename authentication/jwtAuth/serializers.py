@@ -4,7 +4,8 @@ from .models import User
 
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True, max_length=255, min_length=6)
-    password = serializers.CharField(max_length=68, min_length=6, write_only=True, required=True)
+    password = serializers.CharField(max_length=68, min_length=6, write_only=True,
+                                     required=True)
     username = serializers.CharField(max_length=68, min_length=6, read_only=True)
     token = serializers.CharField(max_length=255, min_length=6, read_only=True)
 
