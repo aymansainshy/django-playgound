@@ -66,7 +66,7 @@ class Register(generics.GenericAPIView):
             # Internal route for verifying email
             relative_link = reverse('email-verify')
             # Generated link below as email body
-            abs_url = 'http://' + current_site + relative_link + '?token=' + str(user_serializer.data['token'])
+            abs_url = 'http://' + current_site + relative_link + '?token=' + str(user_serializer.data['access_token'])
             email_body = 'Hi ' + saved_user.username + ' use link below to verify your email \n' + abs_url
             data = {
                 'email_body': email_body,
@@ -76,12 +76,10 @@ class Register(generics.GenericAPIView):
             # Sending email for verifications
             Utils.send_email(data)
 
-            return Response({
-                "code": 1,
-                "status": status.HTTP_201_CREATED,
-                "data": user_serializer.data,
-                # 'access_token': user_serializer.data['token'],
-            })
+            return Response(
+                data=user_serializer.data,
+                status=status.HTTP_201_CREATED
+            )
 
         # return Response(userSerializer.errors, status=status.HTTP_404_NOT_FOUND)
 
@@ -120,12 +118,7 @@ def login(request):
         # else return the founded user
         user_serializer = LoginSerializer(user)
         return Response(
-            data={
-                'code': 1,
-                'status': status.HTTP_200_OK,
-                'data': user_serializer.data,
-                # 'access_token': user.token(),
-            },
+            data=user_serializer.data,
             status=status.HTTP_200_OK
         )
 
