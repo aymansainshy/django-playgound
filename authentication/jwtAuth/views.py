@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import (api_view, authentication_classes,
+                                       permission_classes, renderer_classes)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
@@ -9,6 +10,7 @@ from rest_framework import generics, status, views
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from drf_yasg.utils import swagger_auto_schema
+from .renderers import UserRenderer
 from drf_yasg import openapi
 from django.contrib import auth
 
@@ -54,6 +56,7 @@ class VerifyEmail(views.APIView):
 
 class Register(generics.GenericAPIView):
     serializer_class = RegisterSerializer
+    renderer_classes = [UserRenderer]
 
     def post(self, request):
         user_serializer = self.serializer_class(data=request.data)
@@ -85,6 +88,7 @@ class Register(generics.GenericAPIView):
 
 
 @api_view(['POST'])
+@renderer_classes([UserRenderer])
 def login(request):
     # serializer act as validator middleware
     user_serializer = LoginSerializer(data=request.data)
@@ -126,6 +130,7 @@ def login(request):
 
 
 @api_view(['GET'])
+@renderer_classes([UserRenderer])
 # @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def testToken(request):
