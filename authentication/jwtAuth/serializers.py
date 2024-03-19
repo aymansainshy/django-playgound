@@ -75,7 +75,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     # def create(self, validated_data) -> User:
     #     password = validated_data.pop('password', None)
-    #     user = self.Meta.model(**validated_data)
+    #     user = self.Meta.models(**validated_data)
     #     if password is not None:
     #         user.set_password(password)
     #     user.save()
@@ -103,7 +103,7 @@ class SetNewPasswordSerializer(serializers.Serializer):
     uidb64 = serializers.CharField(min_length=1, write_only=True)
 
     class Meta:
-        # model = User
+        # models = User
         fields = ['new_password', 'token', 'uidb64']
 
     def validate(self, validated_data):

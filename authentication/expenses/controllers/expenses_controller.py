@@ -1,12 +1,11 @@
-from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions
-from .serializers import ExpenseSerializer
-from .models import Expense
-from .permessions import IsOwner
+from ..serializers.expense_serializer import ExpenseSerializer
+from ..models.expense_model import Expense
+from ..permessions.permessions import IsOwner
 
 
-class ExpenseListApiView(ListCreateAPIView):
+class ExpenseListController(ListCreateAPIView):
     serializer_class = ExpenseSerializer
     queryset = Expense.objects.all()
     permission_classes = [permissions.IsAuthenticated, IsOwner]
@@ -20,7 +19,7 @@ class ExpenseListApiView(ListCreateAPIView):
         return self.queryset.filter(owner=self.request.user)
 
 
-class ExpenseDetailsApiView(RetrieveUpdateDestroyAPIView):
+class ExpenseDetailsController(RetrieveUpdateDestroyAPIView):
     serializer_class = ExpenseSerializer
     queryset = Expense.objects.all()
     permission_classes = [permissions.IsAuthenticated]
