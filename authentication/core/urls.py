@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/auth/', include('jwtAuth.urls')),
     path('api/expenses/', include('expenses.router.urls')),
     path('api/incomes/', include('income.urls')),
+    path('api/userstats/', include('userstats.urls')),
 
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

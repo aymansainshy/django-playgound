@@ -97,7 +97,8 @@ INSTALLED_APPS = [
     'drf_yasg',  # swagger
     'jwtAuth',
     'expenses',
-    'income'
+    'income',
+    'userstats'
 ]
 
 SWAGGER_SETTINGS = {
