@@ -17,12 +17,23 @@ class LoginSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=68, min_length=6, write_only=True,
                                      required=True)
     username = serializers.CharField(max_length=68, min_length=6, read_only=True)
-    access_token = serializers.CharField(max_length=255, min_length=6, read_only=True)
-    refresh_token = serializers.CharField(max_length=255, min_length=6, read_only=True)
+    # access_token = serializers.CharField(max_length=255, min_length=6, read_only=True)
+    # refresh_token = serializers.CharField(max_length=255, min_length=6, read_only=True)
+    tokens = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_tokens(obj):
+        user = User.objects.get(email=obj.email)
+        return {
+            'access_token': user.tokens()['access_token'],
+            'refresh_token': user.tokens()['refresh_token'],
+        }
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'is_active', 'is_verified', 'access_token', 'refresh_token']
+        fields = ['id', 'username', 'email', 'password', 'is_active', 'is_verified',
+                  # 'access_token', 'refresh_token',
+                  'tokens']
 
         # If you override them above no need to add rules here, like we didn't add password field
         extra_kwargs = {
